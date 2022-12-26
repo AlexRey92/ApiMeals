@@ -11,12 +11,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-import retrofit2.create
-
 class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: MealAdapter
-    private var listOfMeals= mutableListOf<MealResponse>()
+    private var listOfMeals= mutableListOf<MealListResponse>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -43,9 +41,10 @@ class MainActivity : AppCompatActivity() {
             runOnUiThread {
                 listOfMeals.clear()
                 if (call.isSuccessful) {
-                    listOfMeals= (response!! )as MutableList<MealResponse>
+                    response?.apply { listOfMeals=
+                        this.categories as MutableList<MealListResponse>
+                    }
                     adapter.submitList(listOfMeals)
-                    getService()
 
 
                 }

@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class MealAdapter: ListAdapter<MealResponse, MealAdapter.ViewHolder>(DiffCallBack) {
+class MealAdapter: ListAdapter<MealListResponse, MealAdapter.ViewHolder>(DiffCallBack) {
     inner class ViewHolder(private val view:View):RecyclerView.ViewHolder(view){
         val idmeal:TextView=view.findViewById(R.id.textViewID)
         val categoryMeal:TextView=view.findViewById(R.id.textViewCategory)
         val imageMeal:ImageView=view.findViewById(R.id.imageViewThumb)
         val descriptionMeal:TextView=view.findViewById(R.id.textViewDescription)
         val image=imageMeal.toString()
-        fun onBind(meal:MealResponse){
+        fun onBind(meal:MealListResponse){
             idmeal.text=meal.idCategory.toString()
             categoryMeal.text=meal.strCategory
             Picasso.get().load(image).into(imageMeal)
@@ -39,12 +39,12 @@ class MealAdapter: ListAdapter<MealResponse, MealAdapter.ViewHolder>(DiffCallBac
             holder.onBind(positionMeal)
     }
 
-    companion object DiffCallBack : DiffUtil.ItemCallback<MealResponse>() {
-        override fun areItemsTheSame(oldItem: MealResponse, newItem: MealResponse): Boolean {
+    companion object DiffCallBack : DiffUtil.ItemCallback<MealListResponse>() {
+        override fun areItemsTheSame(oldItem: MealListResponse, newItem: MealListResponse): Boolean {
             return  oldItem.idCategory == newItem.idCategory
         }
 
-        override fun areContentsTheSame(oldItem: MealResponse, newItem: MealResponse): Boolean {
+        override fun areContentsTheSame(oldItem: MealListResponse, newItem: MealListResponse): Boolean {
             return oldItem == newItem
         }
     }
